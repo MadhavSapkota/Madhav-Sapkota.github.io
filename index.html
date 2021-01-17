@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Protofolio</title>
+</head>
+<body>
+
+	<div id="loading">
+		loading.....
+	</div>
+
+	<style>
+		.main{
+			text-align: center;
+		}
+	</style>
+
+	<div class="main" id="mainContainer" hidden>
+
+
+		<img  width="100" height="100" id="profileImage">
+
+		<h2 id="fullName">Madhav Sapkota</h2>
+		<p id="bio"></p>
+		<h5 id="followersInformation"></h5>
+
+		<p>
+			Check me on <a id="githubLink">Github</a>
+		</p>
+
+	</div>
+
+
+	<script>
+		fetch("https://api.github.com/users/MadhavSapkota")
+		.then(response => response.json())
+		.then (function(data){
+			// console.log(data);
+
+			let followersCount = data['followers']
+			let followersInfo = `Followed by  ${followersCount} in Github`
+			document.getElementById('profileImage').src = data['avatar_url']
+			document.getElementById('fullName').textContent = data['name']
+			document.getElementById('bio').textContent = data['bio']
+			document.getElementById('followersInformation').textContent = followersInfo
+			document.getElementById('githubLink').href = data['html_url']
+			document.getElementById('mainContainer').hidden = false
+			document.getElementById('loading').hidden = true
+
+
+		})
+
+	</script>
+
+
+</body>
+</html>
